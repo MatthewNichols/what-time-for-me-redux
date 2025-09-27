@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link webc:keep rel="stylesheet" :href="cacheBustedUrl('/styles/site.css')">
+  <title @text="title"></title>
+</head>
+<body>
+  <h1 @html="title"></h1>
+  <div id="page-content" @raw="content">
+
+  </div>
+
+  <script webc:keep :src="cacheBustedUrl('/scripts/index.js')"></script>
+</body>
+</html>
