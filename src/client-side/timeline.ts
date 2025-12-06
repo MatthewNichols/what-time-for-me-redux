@@ -10,10 +10,11 @@ interface TimeBlock {
 }
 
 /**
- * Checks if an hour is within the available calling hours
+ * Checks if a given time is within the available calling hours in MY_TIMEZONE
  */
-function isAvailableHour(hour: number): boolean {
-  return hour >= AVAILABLE_START_HOUR && hour < AVAILABLE_END_HOUR;
+function isTimeAvailable(time: Date): boolean {
+  const hourInMyTimezone = parseInt(formatInTimeZone(time, MY_TIMEZONE, 'H'));
+  return hourInMyTimezone >= AVAILABLE_START_HOUR && hourInMyTimezone < AVAILABLE_END_HOUR;
 }
 
 /**
@@ -28,10 +29,11 @@ function generateTimeBlocks(timezone: string, now: Date): TimeBlock[] {
     const hour = parseInt(formatInTimeZone(time, timezone, 'H'));
 
     // Full hour block
+    // Check availability based on what hour it is in MY_TIMEZONE, not the display timezone
     blocks.push({
       hour,
       displayTime: formatInTimeZone(time, timezone, 'HH:mm'),
-      isAvailable: isAvailableHour(hour),
+      isAvailable: isTimeAvailable(time),
       isHalfHour: false
     });
   }
