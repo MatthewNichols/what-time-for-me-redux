@@ -34,14 +34,6 @@ function generateTimeBlocks(timezone: string, now: Date): TimeBlock[] {
       isAvailable: isAvailableHour(hour),
       isHalfHour: false
     });
-
-    // Half-hour tick mark
-    blocks.push({
-      hour,
-      displayTime: formatInTimeZone(addHours(time, 0.5), timezone, 'HH:mm'),
-      isAvailable: isAvailableHour(hour),
-      isHalfHour: true
-    });
   }
 
   return blocks;
@@ -57,25 +49,17 @@ function renderTimeline(containerId: string, blocks: TimeBlock[]): void {
   container.innerHTML = '';
 
   blocks.forEach(block => {
-    if (block.isHalfHour) {
-      // Half-hour tick mark
-      const tick = document.createElement('div');
-      tick.className = 'timeline-tick';
-      tick.setAttribute('data-time', block.displayTime);
-      container.appendChild(tick);
-    } else {
-      // Full hour block
-      const hourBlock = document.createElement('div');
-      hourBlock.className = `timeline-hour ${block.isAvailable ? 'available' : 'unavailable'}`;
-      hourBlock.setAttribute('data-time', block.displayTime);
+    // Full hour block
+    const hourBlock = document.createElement('div');
+    hourBlock.className = `timeline-hour ${block.isAvailable ? 'available' : 'unavailable'}`;
+    hourBlock.setAttribute('data-time', block.displayTime);
 
-      const timeLabel = document.createElement('span');
-      timeLabel.className = 'time-label';
-      timeLabel.textContent = block.displayTime;
+    const timeLabel = document.createElement('span');
+    timeLabel.className = 'time-label';
+    timeLabel.textContent = block.displayTime;
 
-      hourBlock.appendChild(timeLabel);
-      container.appendChild(hourBlock);
-    }
+    hourBlock.appendChild(timeLabel);
+    container.appendChild(hourBlock);
   });
 }
 
