@@ -2,6 +2,175 @@
   box-sizing: border-box;
 }
 
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f5f5f5;
+}
+
 h1 {
-  color: red;
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 2rem;
+}
+
+h2 {
+  color: #34495e;
+  margin-bottom: 1rem;
+}
+
+h3 {
+  color: #7f8c8d;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.timezone-container {
+  background: white;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.current-times {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 2px solid #ecf0f1;
+}
+
+.time-display {
+  text-align: center;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 6px;
+}
+
+.time-display h2 {
+  margin-top: 0;
+  font-size: 1.3rem;
+}
+
+.location {
+  font-size: 1rem;
+  color: #7f8c8d;
+  margin-bottom: 0.5rem;
+}
+
+.time {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #2c3e50;
+  font-family: 'Courier New', monospace;
+}
+
+.timeline-section {
+  margin-top: 2rem;
+}
+
+.timeline-section > h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.timelines {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.timeline-wrapper {
+  h3 {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  background: #f8f9fa;
+  border-radius: 6px;
+  padding: 1rem;
+  overflow-y: auto;
+  max-height: 600px;
+}
+
+.timeline-hour {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-left: 4px solid transparent;
+  position: relative;
+  min-height: 40px;
+
+  &.available {
+    background-color: #d4edda;
+    border-left-color: #28a745;
+  }
+
+  &.unavailable {
+    background-color: #f8f9fa;
+    border-left-color: #dee2e6;
+  }
+
+  .time-label {
+    font-weight: 600;
+    font-family: 'Courier New', monospace;
+    color: #2c3e50;
+  }
+}
+
+.timeline-tick {
+  height: 1px;
+  background-color: #dee2e6;
+  margin: 0 1rem;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: -1rem;
+    top: -2px;
+    width: 8px;
+    height: 5px;
+    background-color: #adb5bd;
+  }
+
+  &::after {
+    content: attr(data-time);
+    position: absolute;
+    left: 10px;
+    top: -8px;
+    font-size: 0.75rem;
+    color: #6c757d;
+    font-family: 'Courier New', monospace;
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .current-times,
+  .timelines {
+    grid-template-columns: 1fr;
+  }
+
+  .timezone-container {
+    padding: 1rem;
+  }
+
+  .time {
+    font-size: 1.2rem;
+  }
+
+  .timeline {
+    max-height: 400px;
+  }
 }

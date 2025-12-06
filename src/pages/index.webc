@@ -1,4 +1,31 @@
 ---
-  title: Home
+title: What time is it for me?
 ---
-  <cool-content></cool-content>
+<div class="timezone-container">
+  <div class="current-times">
+    <div class="time-display my-time">
+      <h2>My Current Time</h2>
+      <div id="my-location" class="location"></div>
+      <div id="my-time" class="time"></div>
+    </div>
+    <div class="time-display your-time">
+      <h2>Your Current Time</h2>
+      <div id="your-location" class="location"></div>
+      <div id="your-time" class="time"></div>
+    </div>
+  </div>
+
+  <div class="timeline-section">
+    <h2>When can we connect?</h2>
+    <div class="timelines">
+      <div class="timeline-wrapper">
+        <h3 id="my-timeline-header">My Time</h3>
+        <div id="my-timeline" class="timeline"></div>
+      </div>
+      <div class="timeline-wrapper">
+        <h3 id="your-timeline-header">Your Time</h3>
+        <div id="your-timeline" class="timeline"></div>
+      </div>
+    </div>
+  </div>
+</div>

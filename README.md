@@ -1,7 +1,8 @@
 # my-11ty-template
-My starting point for new [11ty](https://www.11ty.dev/) projects. 11ty is a Jamstack static site generator that is simple to use/setup. It is easily hostable on Netlify, Github Pages or Cloudflare Pages, and countless other services.  
+A static site that can be configured to show people around the world what time it is for you.  
 
-No guarentees, but I do make an effort to make it generally useful for a new project. It should run anywhere you can run NodeJs If you have any questions, comments, or suggestions, please let open an issue and I will try to respond as soon as I can.  
+# Notes on CloudFlare deployment
+- https://benwhite.com.au/blog/pages-to-workers/
 
 ## Key Dependencies
 - nodejs and npm (whatever 11ty requires)

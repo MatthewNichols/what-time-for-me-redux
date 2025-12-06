@@ -13,6 +13,6 @@
 
   </div>
 
-  <script webc:keep :src="cacheBustedUrl('/scripts/index.js')"></script>
+  <script webc:keep :src="cacheBustedUrl('/scripts/index.bundled.js')"></script>
 </body>
 </html>
