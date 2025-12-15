@@ -1,7 +1,39 @@
 {
+  "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "what-time-for-me-redux",
-  "compatibility_date": "2025-12-06",
+  "compatibility_date": "2024-09-23",
+  "compatibility_flags": [
+    "nodejs_compat", "nodejs_compat_populate_process_env"
+  ],
   "assets": {
     "directory": "_site"
+  },
+  // Default variables (used for local dev with wrangler dev)
+  "vars": {
+    "MY_LOCATION_NAME": "Denver area, CO, USA",
+    "MY_TIMEZONE": "America/Denver",
+    "AVAILABLE_START_HOUR": "9",
+    "AVAILABLE_END_HOUR": "17"
+  },
+  // Environment-specific overrides
+  "env": {
+    "production": {
+      "name": "what-time-for-me-redux",
+      "vars": {
+        "MY_LOCATION_NAME": "Iberia, probably Valencia",
+        "MY_TIMEZONE": "Europe/Madrid",
+        "AVAILABLE_START_HOUR": "9",
+        "AVAILABLE_END_HOUR": "17"
+      }
+    },
+    "staging": {
+      "name": "what-time-for-me-redux-staging",
+      "vars": {
+        "MY_LOCATION_NAME": "Test Location",
+        "MY_TIMEZONE": "America/New_York",
+        "AVAILABLE_START_HOUR": "10",
+        "AVAILABLE_END_HOUR": "18"
+      }
+    }
   }
 }
