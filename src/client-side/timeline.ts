@@ -7,9 +7,7 @@ import { MY_LOCATION_NAME, MY_TIMEZONE, AVAILABLE_START_HOUR, AVAILABLE_END_HOUR
 interface TimeBlock {
   hour: number;
   utcTime: UTCDate;
-  // displayTime: string;
   isAvailable: boolean;
-  // isHalfHour?: boolean;
 }
 
 /**
@@ -25,17 +23,19 @@ function getAvailableHourUTC(startOrEndHour: any): number {
   return utcDate.getHours();
 }
 
+// Precalculate available hours in UTC as working in UTC whenever possible
+// avoids repeated timezone conversions during timeline generation and I find 
+// easier to reason about.
 const AVAILABLE_START_HOUR_UTC = getAvailableHourUTC(AVAILABLE_START_HOUR);
 const AVAILABLE_END_HOUR_UTC = getAvailableHourUTC(AVAILABLE_END_HOUR);
 console.log(`Available hours in UTC: ${AVAILABLE_START_HOUR_UTC} - ${AVAILABLE_END_HOUR_UTC}`);
+
 /**
  * Checks if a given time is within the available calling hours in MY_TIMEZONE,
  * by checking compared to precalculated UTC hours.
  */
 function isTimeAvailable(time: UTCDate): boolean {
-  //const hourInMyTimezone = parseInt(formatInTimeZone(time, MY_TIMEZONE, 'H'));
   const hourInUTC = time.getHours();
-  console.log(`Checking availability for UTC hour ${hourInUTC}`);
   if (AVAILABLE_START_HOUR_UTC < AVAILABLE_END_HOUR_UTC) {
     // Normal case, e.g., 9 to 17
     return hourInUTC >= AVAILABLE_START_HOUR_UTC && hourInUTC < AVAILABLE_END_HOUR_UTC;
@@ -47,6 +47,7 @@ function isTimeAvailable(time: UTCDate): boolean {
 
 /**
  * Generates 24 hours of time blocks in UTC starting from the current hour
+ * that will be used to render all timelines in different timezones.
  */
 function generateTimeBlocks(): TimeBlock[] {
   const nowInTimezone = new UTCDate();
@@ -114,9 +115,7 @@ export function renderTimelines(): void {
     yourHeader.textContent = `Your Time (${visitorTimezone})`;
   }
 
-  // Generate and render timelines
   const timeBlocks = generateTimeBlocks();
-
   renderTimeline('my-timeline', timeBlocks, MY_TIMEZONE);
   renderTimeline('your-timeline', timeBlocks, visitorTimezone);
 }
