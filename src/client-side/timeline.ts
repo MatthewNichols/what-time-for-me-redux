@@ -1,6 +1,5 @@
 import { TZDate } from '@date-fns/tz';
-import { addHours, startOfHour } from 'date-fns';
-import { formatInTimeZone } from 'date-fns-tz';
+import { addHours, startOfHour, format } from 'date-fns';
 import { MY_LOCATION_NAME, MY_TIMEZONE, AVAILABLE_START_HOUR, AVAILABLE_END_HOUR } from './config';
 
 interface TimeBlock {
@@ -50,7 +49,6 @@ function isTimeAvailable(time: TZDate): boolean {
  */
 function generateTimeBlocks(): TimeBlock[] {
   const nowInTimezone = (new TZDate());
-  console.log('Now in timezone:', nowInTimezone);
   const blocks: TimeBlock[] = [];
   const startHour = startOfHour(nowInTimezone);
   
@@ -81,8 +79,7 @@ function renderTimeline(containerId: string, blocks: TimeBlock[], timezone: stri
   container.innerHTML = '';
 
   blocks.forEach(block => {
-    const displayTime = formatInTimeZone(block.utcTime, timezone, 'HH:mm');
-    // const displayTime = format(block.utcTime, 'HH:mm', { in: tz(timezone) });
+    const displayTime = format(block.utcTime.withTimeZone(timezone), 'HH:mm');
     // Full hour block
     const hourBlock = document.createElement('div');
     hourBlock.className = `timeline-hour ${block.isAvailable ? 'available' : 'unavailable'}`;

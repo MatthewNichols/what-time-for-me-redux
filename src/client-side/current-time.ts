@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import { formatInTimeZone } from 'date-fns-tz';
+import { TZDate } from '@date-fns/tz';
 import { MY_LOCATION_NAME, MY_TIMEZONE } from './config';
 
 /**
@@ -17,7 +17,7 @@ export function updateCurrentTimes(): void {
 
   if (myLocationEl && myTimeEl) {
     myLocationEl.textContent = `${MY_LOCATION_NAME} (${MY_TIMEZONE})`;
-    myTimeEl.textContent = formatInTimeZone(now, MY_TIMEZONE, 'EEEE, MMMM d, yyyy h:mm:ss a zzz');
+    myTimeEl.textContent = format((new TZDate(now.toString(), MY_TIMEZONE)), 'EEEE, MMMM d, yyyy h:mm:ss a zzz');
   }
 
   // Update visitor's location and time
