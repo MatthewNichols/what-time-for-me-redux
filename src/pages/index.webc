@@ -1,5 +1,5 @@
 ---
-title: What time is it for me?
+title: What time is it where I am?
 ---
 <div class="timezone-container">
   <div class="current-times">
@@ -16,7 +16,7 @@ title: What time is it for me?
   </div>
 
   <div class="timeline-section">
-    <h2>When can we connect?</h2>
+    <h2>When am I available to connect?</h2>
     <div class="timelines">
       <div class="timeline-wrapper">
         <h3 id="my-timeline-header">My Time</h3>
