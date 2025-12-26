@@ -21,6 +21,7 @@
     "dev:wrangler": "wrangler dev",
     "dev:prebuild": "npm-run-all -s build:sass build:js bundle:js:dev build:web",
     "dev": "npm-run-all -s dev:prebuild && npm-run-all -p serve:web watch:sass watch:js watch:bundle",
+    "dev:log": "npm run dev 2>&1 | tee dev-output.log",
     "dev-no-js": "npm run build:sass && npm-run-all -p serve:web watch:sass",
     "build": "npm-run-all -s clean:site build:sass post:css clean:js build:js bundle:js build:web",
     "serve-as-prod": "npm-run-all -s clean:site build:sass post:css clean:js build:js bundle:js serve:web-prod",
@@ -56,6 +57,8 @@
   },
   "dependencies": {
     "date-fns": "^4.1.0",
-    "date-fns-tz": "^3.2.0"
+    "date-fns-tz": "^3.2.0",
+    "@date-fns/tz": "1.4.1",
+    "@date-fns/utc": "2.1.1"
   }
 }
