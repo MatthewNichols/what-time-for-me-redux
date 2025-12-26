@@ -1,4 +1,3 @@
-import { UTCDate } from '@date-fns/utc';
 import { TZDate } from '@date-fns/tz';
 import { addHours, startOfHour } from 'date-fns';
 import { formatInTimeZone } from 'date-fns-tz';
@@ -6,7 +5,7 @@ import { MY_LOCATION_NAME, MY_TIMEZONE, AVAILABLE_START_HOUR, AVAILABLE_END_HOUR
 
 interface TimeBlock {
   hour: number;
-  utcTime: UTCDate;
+  utcTime: TZDate;
   isAvailable: boolean;
 }
 
@@ -19,7 +18,7 @@ function getAvailableHourUTC(startOrEndHour: any): number {
   nowInTZ.setHours(startOrEndHourCleaned, 0, 0, 0);
   
   // Convert that time to UTC
-  const utcDate = new UTCDate(nowInTZ.toString());
+  const utcDate = new TZDate(nowInTZ.toString(), 'UTC');
   return utcDate.getHours();
 }
 
@@ -34,8 +33,8 @@ console.log(`Available hours in UTC: ${AVAILABLE_START_HOUR_UTC} - ${AVAILABLE_E
  * Checks if a given time is within the available calling hours in MY_TIMEZONE,
  * by checking compared to precalculated UTC hours.
  */
-function isTimeAvailable(time: UTCDate): boolean {
-  const hourInUTC = time.getHours();
+function isTimeAvailable(time: TZDate): boolean {
+  const hourInUTC = time.withTimeZone('UTC').getHours();
   if (AVAILABLE_START_HOUR_UTC < AVAILABLE_END_HOUR_UTC) {
     // Normal case, e.g., 9 to 17
     return hourInUTC >= AVAILABLE_START_HOUR_UTC && hourInUTC < AVAILABLE_END_HOUR_UTC;
@@ -50,8 +49,8 @@ function isTimeAvailable(time: UTCDate): boolean {
  * that will be used to render all timelines in different timezones.
  */
 function generateTimeBlocks(): TimeBlock[] {
-  const nowInTimezone = new UTCDate();
-  console.log('Now in timezone:', nowInTimezone.toString());
+  const nowInTimezone = (new TZDate());
+  console.log('Now in timezone:', nowInTimezone);
   const blocks: TimeBlock[] = [];
   const startHour = startOfHour(nowInTimezone);
   
@@ -83,6 +82,7 @@ function renderTimeline(containerId: string, blocks: TimeBlock[], timezone: stri
 
   blocks.forEach(block => {
     const displayTime = formatInTimeZone(block.utcTime, timezone, 'HH:mm');
+    // const displayTime = format(block.utcTime, 'HH:mm', { in: tz(timezone) });
     // Full hour block
     const hourBlock = document.createElement('div');
     hourBlock.className = `timeline-hour ${block.isAvailable ? 'available' : 'unavailable'}`;
